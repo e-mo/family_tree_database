@@ -14,6 +14,7 @@ import java.util.stream.Collectors;
  * This implementation uses HashMap for in-memory storage and Java serialization
  * for persistence. Alternative implementations could use JSON, XML, SQL databases, etc.
  */
+@SuppressWarnings("unused")
 public class FamilyTreeDatabaseSimple implements FamilyTreeDatabase {
     private final Path databaseFile;
     private Map<String, Person> personMap; // ID -> Person mapping for fast lookups

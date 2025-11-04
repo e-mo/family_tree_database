@@ -1,5 +1,6 @@
 package edu.vermontstate;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -10,6 +11,7 @@ import java.util.Objects;
  * Represents a person (node) in a family tree.
  */
 public class Person implements Serializable {
+    @Serial
     private static final long serialVersionUID = 1L;
     
     private final String id;
