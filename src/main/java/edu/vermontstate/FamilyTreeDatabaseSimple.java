@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 /**
  * A single-file database for storing and retrieving family tree information.
  * Uses Java serialization to store Person objects in a file.
- * 
+ * <p>
  * This implementation uses HashMap for in-memory storage and Java serialization
  * for persistence. Alternative implementations could use JSON, XML, SQL databases, etc.
  */

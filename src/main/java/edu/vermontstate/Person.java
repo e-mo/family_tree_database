@@ -10,6 +10,7 @@ import java.util.Objects;
 /**
  * Represents a person (node) in a family tree.
  */
+@SuppressWarnings("unused")
 public class Person implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
