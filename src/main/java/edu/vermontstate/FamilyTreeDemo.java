@@ -5,10 +5,11 @@ import java.time.LocalDate;
 /**
  * Demonstration of the FamilyTreeDatabase functionality.
  */
+
 public class FamilyTreeDemo {
-    public static void main(String[] args) {
+    @SuppressWarnings("unused")
+    static void main(String[] args) {
         // Create or load the database
-        // Using interface type allows for easy switching of implementations
         FamilyTreeDatabase db = new FamilyTreeDatabaseSimple("family_tree.db");
         
         try {

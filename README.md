@@ -183,6 +183,7 @@ public class FamilyTreeDatabaseMySql implements FamilyTreeDatabase {
 - Backup of old database file on save instead of overwrite
 - Automatically add inverse relationships to reduce errors
 - Catch and invalidate illegal relationship combinations (you can't have 2 birth mothers)
+- Create new person directly from database class that already has valid ID
 
 ## Thread Safety
 
