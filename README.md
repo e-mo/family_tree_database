@@ -6,8 +6,6 @@ A simple, single-file database system for storing and managing family tree infor
 
 - **Single-file storage** using Java serialization
 - **Fast lookups** by ID using HashMap
-- **Multiple search methods**: by name, birth year, gender, relationships, etc.
-- **Comprehensive relationship types**: parent/child, siblings, spouses, extended family, adoptive, foster, etc.
 - **Separate Sex and Gender fields** for medical and identity purposes
 - **Relationship notes** for additional context
 - **Atomic file writes** to prevent data corruption
@@ -74,8 +72,6 @@ FamilyTreeDatabase db = new FamilyTreeDatabaseSimple("family_tree.db");
 // IFamilyTreeDatabase db = new SqlFamilyTreeDatabase("jdbc:sqlite:family_tree.db");
 ```
 
-
-
 ### Adding People
 
 ```java
@@ -109,9 +105,6 @@ Optional<Person> person = db.findById("P12345");
 // Find by name (partial match)
 List<Person> smiths = db.findByName("Smith");
 
-// Find living people
-List<Person> living = db.findLiving();
-
 // Find by birth year
 List<Person> bornIn1980 = db.findByBirthYear(1980);
 
@@ -124,24 +117,12 @@ List<Person> diabetics = db.findByMedicalHistory("diabetes");
 List<Person> allergies = db.findByMedicalHistory("allergy");
 List<Person> heartConditions = db.findByMedicalHistory("heart");
 
-// Find related people
-List<Person> relatives = db.findRelatedTo(personId);
 ```
 
 ### Saving
 
 ```java
 db.saveDatabase(); // Automatically saves to the file specified in constructor
-```
-
-## Compiling and Running
-
-```bash
-# Compile all files
-javac *.java
-
-# Run the demo
-java FamilyTreeDemo
 ```
 
 ## File Format

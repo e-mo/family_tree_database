@@ -64,18 +64,10 @@ List<Person> results = db.findByExactName("John Smith");
 // By birth year
 List<Person> born1980 = db.findByBirthYear(1980);
 
-// By status
-List<Person> living = db.findLiving();
-List<Person> deceased = db.findDeceased();
-
 // By attributes
 List<Person> males = db.findByBirthSex(Sex.MALE);
 List<Person> nonBinary = db.findByGenderNotes("non-binary");
 List<Person> diabetics = db.findByMedicalHistory("diabetes");
-
-// By relationships
-List<Person> relatives = db.findRelatedTo(personId);
-List<Person> children = db.findByRelationshipType(personId, RelationshipType.CHILD);
 ```
 
 ### Updating
