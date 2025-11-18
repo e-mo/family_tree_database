@@ -11,28 +11,30 @@ import java.util.Base64;
  * A simple class to store user credentials with secure password hashing.
  * Uses bcrypt for password hashing.
  */
-@SuppressWarnings("unused")
-public record Credential(String hashedUsername, String hashedPassword) implements Serializable {
+@SuppressWarnings("unused, FieldMayBeFinal")
+public class Credential implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
+    private String hashedUsername;
+    private String hashedPassword;
     /**
      * Creates a new Credential with the given username and raw password.
      * The password is automatically hashed using bcrypt.
      *
-     * @param hashedUsername the username
-     * @param hashedPassword the raw (unhashed) password
+     * @param username the username
+     * @param password the raw (unhashed) password
      */
-    public Credential(String hashedUsername, String hashedPassword) {
-        if (hashedUsername == null || hashedUsername.trim().isEmpty()) {
+    public Credential(String username, String password) {
+        if (username == null || username.trim().isEmpty()) {
             throw new IllegalArgumentException("Username cannot be null or empty");
         }
-        if (hashedPassword == null || hashedPassword.isEmpty()) {
+        if (password == null || password.isEmpty()) {
             throw new IllegalArgumentException("Password cannot be null or empty");
         }
 
-        this.hashedUsername = Credential.hashUsername(hashedUsername);
-        this.hashedPassword = BCrypt.hashpw(hashedPassword, BCrypt.gensalt());
+        this.hashedUsername = Credential.hashUsername(username);
+        this.hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
     }
 
     static String hashUsername(String username) {
@@ -50,7 +52,6 @@ public record Credential(String hashedUsername, String hashedPassword) implement
      *
      * @return the username
      */
-    @Override
     public String hashedUsername() {
         return hashedUsername;
     }
@@ -60,7 +61,6 @@ public record Credential(String hashedUsername, String hashedPassword) implement
      *
      * @return the hashed password
      */
-    @Override
     public String hashedPassword() {
         return hashedPassword;
     }
