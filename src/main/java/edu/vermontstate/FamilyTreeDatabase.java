@@ -8,6 +8,7 @@ import java.util.Optional;
  * Interface defining the core operations for a family tree database.
  * Implementations can use different storage backends (serialization, JSON, XML, SQL, etc.).
  */
+@SuppressWarnings("unused")
 public interface FamilyTreeDatabase {
     
     // ==================== Persistence Operations ====================
@@ -48,7 +49,6 @@ public interface FamilyTreeDatabase {
     boolean removePerson(String id);
     
     // ==================== Basic Search Operations ====================
-    
     /**
      * Find a person by their unique ID.
      * @param id the person's ID

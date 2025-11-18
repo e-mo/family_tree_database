@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 @SuppressWarnings("unused")
 public class FamilyTreeDatabaseSimple implements FamilyTreeDatabase {
     private final Path databaseFile;
-    private Map<String, Person> personMap; // ID -> Person mapping for fast lookups
+    private HashMap<String, Person> personMap; // ID -> Person mapping for fast lookups
     
     public FamilyTreeDatabaseSimple(String filename) {
         this.databaseFile = Path.of(filename);
@@ -28,6 +28,7 @@ public class FamilyTreeDatabaseSimple implements FamilyTreeDatabase {
     /**
      * Load the database from file. Creates empty database if file doesn't exist.
      */
+    @SuppressWarnings("unchecked")
     @Override
     public void loadDatabase() {
         if (!Files.exists(databaseFile)) {
@@ -35,11 +36,8 @@ public class FamilyTreeDatabaseSimple implements FamilyTreeDatabase {
             return;
         }
         
-        try (ObjectInputStream ois = new ObjectInputStream(
-                new BufferedInputStream(new FileInputStream(databaseFile.toFile())))) {
-            @SuppressWarnings("unchecked")
-            Map<String, Person> loaded = (Map<String, Person>) ois.readObject();
-            personMap = loaded;
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(databaseFile.toString()))) {
+            personMap = (HashMap<String, Person>) ois.readObject();
             System.out.println("Database loaded successfully. " + personMap.size() + " records found.");
         } catch (IOException | ClassNotFoundException e) {
             System.err.println("Error loading database: " + e.getMessage());
@@ -80,7 +78,7 @@ public class FamilyTreeDatabaseSimple implements FamilyTreeDatabase {
     
     /**
      * Update an existing person in the database.
-     * @throws IllegalArgumentException if person doesn't exist
+     * @throws IllegalArgumentException if person doesn't exist.
      */
     @Override
     public void updatePerson(Person person) {
@@ -92,7 +90,7 @@ public class FamilyTreeDatabaseSimple implements FamilyTreeDatabase {
     
     /**
      * Remove a person from the database.
-     * @return true if person was removed, false if not found
+     * @return true if person was removed, false if not found.
      */
     @Override
     public boolean removePerson(String id) {
@@ -163,6 +161,8 @@ public class FamilyTreeDatabaseSimple implements FamilyTreeDatabase {
 
     /**
      * Find all people born in a specific year.
+     * This is an example of the kind of search functions we could implement.
+     * I'm not sure this one is super helpful.
      */
     @Override
     public List<Person> findByBirthYear(int year) {
@@ -205,7 +205,8 @@ public class FamilyTreeDatabaseSimple implements FamilyTreeDatabase {
     
     /**
      * Generate a unique ID for a new person.
-     * Simple implementation using UUID. You could implement a sequential ID if preferred.
+     * Simple implementation using UUID.
+     * Could also be made sequential if that is found to be necessary.
      */
     @Override
     public String generateUniqueId() {
@@ -222,6 +223,7 @@ public class FamilyTreeDatabaseSimple implements FamilyTreeDatabase {
      */
     @Override
     public List<String> validateRelationships() {
+        // TODO: Expand on this validation to ensure correct types of relationships as well.
         List<String> errors = new ArrayList<>();
         
         for (Person person : personMap.values()) {
