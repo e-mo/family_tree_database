@@ -28,7 +28,10 @@ public class CredentialDatabaseDemo {
                     System.out.println("Credential added!");
             }
 
-            credentialDB.saveToFile();
+            if (credentialDB.saveToFile())
+                System.out.println("Database saved!");
+            else
+                System.out.println("Error: Database unable to save.");
 
         } catch (Exception e) {
             System.err.println("Error: " + e.getMessage());

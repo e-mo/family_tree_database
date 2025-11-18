@@ -23,9 +23,8 @@ public class CredentialDatabase {
         this.databaseFilePath = filePath;
         File file = new File(filePath);
 
-        if (file.exists()) {
-            loadFromFile();
-        } else {
+        // If the file load fails, an empty credentials map is created.
+        if (!loadFromFile()) {
             credentials = new HashMap<>();
         }
     }
@@ -114,13 +113,14 @@ public class CredentialDatabase {
 
     /**
      * Saves the database to the file.
-     *
-     * @throws IOException if there's an error writing to the file
      */
-    public void saveToFile() throws IOException {
-        try (ObjectOutputStream oos = new ObjectOutputStream(
-                new FileOutputStream(databaseFilePath))) {
+    public boolean saveToFile() {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(databaseFilePath))) {
             oos.writeObject(credentials);
+            return true;
+        } catch (IOException e) {
+            System.err.println("Error saving database: " + e.getMessage());
+            return false;
         }
     }
 
@@ -128,14 +128,16 @@ public class CredentialDatabase {
      * Loads the database from the file.
      */
     @SuppressWarnings("unchecked")
-    private void loadFromFile() {
+    private boolean loadFromFile() {
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(databaseFilePath))) {
             credentials = (HashMap<String, Credential>) ois.readObject();
             System.out.println("Database loaded successfully. " + credentials.size() + " records found.");
+            return true;
         } catch (IOException | ClassNotFoundException e) {
             System.err.println("Error loading database: " + e.getMessage());
             System.err.println("Starting with empty database.");
             credentials = new HashMap<>();
+            return false;
         }
     }
 
