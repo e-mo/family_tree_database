@@ -6,14 +6,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+@SuppressWarnings("unused")
 public class User implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
-    private String userName;
+    private final String userName;
     // List of associated family tree database files. This way a user
     // can have more than one family tree projects running.
-    private List<String> treeProjects;
+    private final List<String> treeProjects;
 
     public User(String userName) {
         this.userName = userName;
