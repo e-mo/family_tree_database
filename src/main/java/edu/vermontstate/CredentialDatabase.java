@@ -32,17 +32,17 @@ public class CredentialDatabase {
     /**
      * Adds a new credential to the database.
      *
-     * @param credential the credential to add
+     * @param cred the credential to add
      * @return true if added successfully, false if username already exists
      */
-    public boolean addCredential(Credential credential) {
-        String hashedUsername = credential.hashedUsername();
+    public boolean addCredential(Credential cred) {
+        String hashedUsername = cred.hashedUsername();
 
         if (credentials.containsKey(hashedUsername)) {
             return false; // Username already exists
         }
 
-        credentials.put(hashedUsername, credential);
+        credentials.put(hashedUsername, cred);
         return true;
     }
 
@@ -87,19 +87,19 @@ public class CredentialDatabase {
      * @return true if the credentials are valid, false otherwise
      */
     public boolean verifyCredentials(String username, String rawPassword) {
-        Credential credential = getCredential(username);
-        if (credential == null) {
+        Credential cred = getCredential(username);
+        if (cred == null) {
             return false;
         }
-        return credential.verifyPassword(rawPassword);
+        return cred.verifyPassword(rawPassword);
     }
 
     public boolean verifyCredentials(String username, char[] rawPassword) {
-        Credential credential = getCredential(username);
-        if (credential == null) {
+        Credential cred = getCredential(username);
+        if (cred == null) {
             return false;
         }
-        return credential.verifyPassword(rawPassword);
+        return cred.verifyPassword(rawPassword);
     }
 
     /**

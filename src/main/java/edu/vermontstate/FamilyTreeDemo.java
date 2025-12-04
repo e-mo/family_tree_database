@@ -10,7 +10,7 @@ public class FamilyTreeDemo {
     @SuppressWarnings("unused")
     static void main(String[] args) {
         // Create or load the database
-        FamilyTreeDatabase db = new FamilyTreeDatabaseSimple("family_tree.db");
+        FamilyTreeDatabase db = new FamilyTreeDatabase("family_tree.db");
         
         try {
             // Create some sample people
